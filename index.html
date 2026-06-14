@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diana — Frontend Developer</title>
+  <meta name="description" content="Portafolio personal de Diana, desarrolladora frontend especializada en React y experiencias web modernas." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --purple: #7F77DD;
+      --purple-light: #EEEDFE;
+      --purple-dark: #3C3489;
+      --teal: #1D9E75;
+      --teal-light: #E1F5EE;
+      --teal-dark: #0F6E56;
+      --text: #1a1a1a;
+      --text-muted: #6b7280;
+      --bg: #fafaf9;
+      --bg-card: #ffffff;
+      --border: rgba(0,0,0,0.08);
+      --font-sans: 'Inter', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --nav-h: 64px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --text: #f0eefc;
+        --text-muted: #9ca3af;
+        --bg: #0f0f10;
+        --bg-card: #1a1a1d;
+        --border: rgba(255,255,255,0.09);
+        --purple-light: #26215C;
+        --teal-light: #04342C;
+      }
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ---------- NAV ---------- */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: var(--nav-h);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem;
+      background: color-mix(in srgb, var(--bg) 85%, transparent);
+      backdrop-filter: blur(12px);
+      border-bottom: 0.5px solid var(--border);
+    }
+    .nav-logo {
+      font-family: var(--font-mono);
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--purple);
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: 14px;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--purple);
+      border: 1px solid var(--purple);
+      padding: 6px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-cta:hover { background: var(--purple); color: #fff; }
+
+    /* ---------- SECTIONS ---------- */
+    section { padding: 5rem 2rem; max-width: 900px; margin: 0 auto; }
+    section + section { padding-top: 2rem; }
+
+    /* ---------- HERO ---------- */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding-top: calc(var(--nav-h) + 2rem);
+      max-width: 900px; margin: 0 auto;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--teal);
+      letter-spacing: 0.06em;
+      margin-bottom: 1.25rem;
+    }
+    .hero-name {
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      font-weight: 600;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.25rem;
+      color: var(--text);
+    }
+    .hero-name span { color: var(--purple); }
+
+    /* terminal typewriter */
+    .terminal-line {
+      display: inline-flex; align-items: center; gap: 0;
+      font-family: var(--font-mono);
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+    .terminal-prefix { color: var(--teal); margin-right: 0.5rem; }
+    #typed-role { color: var(--text); }
+    .cursor {
+      display: inline-block; width: 2px; height: 1.2em;
+      background: var(--purple);
+      margin-left: 2px;
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    .hero-desc {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 540px;
+      margin-bottom: 2.5rem;
+      line-height: 1.7;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      font-size: 14px; font-weight: 500;
+      background: var(--purple); color: #fff;
+      padding: 10px 24px; border-radius: 8px;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-ghost {
+      font-size: 14px; font-weight: 500;
+      color: var(--text); border: 1px solid var(--border);
+      padding: 10px 24px; border-radius: 8px;
+      text-decoration: none;
+      transition: border-color 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--text-muted); }
+
+    /* ---------- SECTION HEADERS ---------- */
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--purple);
+      margin-bottom: 0.5rem;
+    }
+    h2 {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+    .section-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      margin-bottom: 3rem;
+    }
+
+    /* ---------- PROJECTS ---------- */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+    .project-card {
+      background: var(--bg-card);
+      border: 0.5px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: border-color 0.2s, transform 0.2s;
+      cursor: default;
+    }
+    .project-card:hover {
+      border-color: var(--purple);
+      transform: translateY(-2px);
+    }
+    .project-tag {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: var(--purple-light);
+      color: var(--purple-dark);
+      margin-bottom: 1rem;
+    }
+    @media (prefers-color-scheme: dark) {
+      .project-tag { color: #AFA9EC; }
+    }
+    .project-card h3 {
+      font-size: 1.05rem; font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+    .project-card p {
+      font-size: 0.9rem; color: var(--text-muted);
+      line-height: 1.6; margin-bottom: 1.25rem;
+    }
+    .project-stack {
+      display: flex; flex-wrap: wrap; gap: 6px;
+    }
+    .stack-chip {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 2px 8px;
+      background: var(--teal-light);
+      color: var(--teal-dark);
+      border-radius: 4px;
+    }
+    @media (prefers-color-scheme: dark) {
+      .stack-chip { color: #5DCAA5; }
+    }
+    .project-links {
+      display: flex; gap: 0.75rem; margin-top: 1rem;
+    }
+    .proj-link {
+      font-size: 12px; font-weight: 500;
+      color: var(--purple);
+      text-decoration: none;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .proj-link:hover { text-decoration: underline; }
+    .proj-link svg { width: 12px; height: 12px; }
+
+    /* ---------- SKILLS ---------- */
+    .skills-cols {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+    .skill-group h4 {
+      font-size: 13px; font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .skill-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .skill-list li {
+      font-size: 14px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .skill-list li::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--purple);
+      flex-shrink: 0;
+    }
+
+    /* ---------- TIMELINE ---------- */
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before {
+      content: '';
+      position: absolute; left: 0; top: 8px; bottom: 8px;
+      width: 1px; background: var(--border);
+    }
+    .timeline-item { position: relative; margin-bottom: 2.5rem; }
+    .timeline-item::before {
+      content: '';
+      position: absolute; left: -2rem; top: 8px;
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--purple);
+      box-shadow: 0 0 0 3px var(--bg), 0 0 0 4px var(--purple);
+    }
+    .timeline-date {
+      font-family: var(--font-mono);
+      font-size: 12px; color: var(--teal);
+      margin-bottom: 4px;
+    }
+    .timeline-item h3 { font-size: 1rem; font-weight: 500; margin-bottom: 2px; }
+    .timeline-item .company {
+      font-size: 13px; color: var(--text-muted); margin-bottom: 6px;
+    }
+    .timeline-item p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+
+    /* ---------- CONTACT ---------- */
+    #contact { padding-bottom: 6rem; }
+    .contact-card {
+      background: var(--bg-card);
+      border: 0.5px solid var(--border);
+      border-radius: 16px;
+      padding: 3rem 2.5rem;
+      text-align: center;
+    }
+    .contact-card h2 { margin-bottom: 0.5rem; }
+    .contact-card .lead {
+      font-size: 1.05rem; color: var(--text-muted);
+      margin-bottom: 2rem; max-width: 400px; margin-left: auto; margin-right: auto;
+    }
+    .social-links {
+      display: flex; gap: 1rem; justify-content: center;
+      flex-wrap: wrap; margin-top: 2rem;
+    }
+    .social-link {
+      font-size: 13px; font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      display: flex; align-items: center; gap: 6px;
+      padding: 8px 16px;
+      border: 0.5px solid var(--border);
+      border-radius: 8px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .social-link:hover { border-color: var(--purple); color: var(--purple); }
+    .social-link svg { width: 16px; height: 16px; }
+
+    /* ---------- FOOTER ---------- */
+    footer {
+      border-top: 0.5px solid var(--border);
+      padding: 1.5rem 2rem;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+    footer span { color: var(--purple); }
+
+    /* ---------- SCROLL REVEAL ---------- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ---------- HAMBURGER ---------- */
+    .ham { display: none; }
+    @media (max-width: 640px) {
+      .nav-links, .nav-cta { display: none; }
+      .ham {
+        display: flex; flex-direction: column; gap: 5px;
+        cursor: pointer; background: none; border: none;
+        padding: 4px;
+      }
+      .ham span {
+        display: block; width: 22px; height: 2px;
+        background: var(--text); border-radius: 2px;
+        transition: transform 0.2s;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="nav-logo">diana.dev</a>
+    <ul class="nav-links">
+      <li><a href="#proyectos">Proyectos</a></li>
+      <li><a href="#habilidades">Habilidades</a></li>
+      <li><a href="#experiencia">Experiencia</a></li>
+      <li><a href="#contact">Contacto</a></li>
+    </ul>
+    <a href="mailto:diana@ejemplo.com" class="nav-cta">Contáctame</a>
+    <button class="ham" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <p class="hero-eyebrow">// Hola, soy</p>
+    <h1 class="hero-name">Diana<span>.</span></h1>
+    <div class="terminal-line">
+      <span class="terminal-prefix">$</span>
+      <span id="typed-role"></span>
+      <span class="cursor"></span>
+    </div>
+    <p class="hero-desc">
+      Desarrolladora frontend especializada en React y experiencias web modernas. 
+      Construyo interfaces que combinan funcionalidad sólida con un diseño cuidado.
+    </p>
+    <div class="hero-actions">
+      <a href="#proyectos" class="btn-primary">Ver proyectos</a>
+      <a href="#contact" class="btn-ghost">Contáctame</a>
+    </div>
+  </section>
+
+  <!-- PROYECTOS -->
+  <section id="proyectos">
+    <div class="reveal">
+      <p class="section-label">// proyectos</p>
+      <h2>Lo que he construido</h2>
+      <p class="section-subtitle">Una selección de proyectos personales y de equipo.</p>
+    </div>
+    <div class="projects-grid reveal">
+
+      <div class="project-card">
+        <span class="project-tag">React · SPA</span>
+        <h3>Recos BnM</h3>
+        <p>Aplicación de recomendaciones en equipo con autenticación, listas compartibles y notas guardadas. Arquitectura modular con interceptores Bearer y CI/CD a Firebase.</p>
+        <div class="project-stack">
+          <span class="stack-chip">React</span>
+          <span class="stack-chip">Firebase</span>
+          <span class="stack-chip">GitHub Actions</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com" class="proj-link" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.268 2.75 1.026A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.026 2.747-1.026.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <span class="project-tag">Frontend · UI</span>
+        <h3>Portafolio Personal SPA</h3>
+        <p>Este mismo sitio — arquitectura SPA sin frameworks pesados, animaciones CSS, scroll reveal y un diseño responsivo alojado en GitHub Pages.</p>
+        <div class="project-stack">
+          <span class="stack-chip">HTML</span>
+          <span class="stack-chip">CSS</span>
+          <span class="stack-chip">Vanilla JS</span>
+          <span class="stack-chip">GitHub Pages</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com" class="proj-link" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.268 2.75 1.026A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.026 2.747-1.026.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <span class="project-tag">React · API</span>
+        <h3>Dashboard de componentes</h3>
+        <p>Sistema de componentes reutilizables con Storybook. Incluye biblioteca de UI con tema oscuro/claro, tokens de diseño y documentación interactiva.</p>
+        <div class="project-stack">
+          <span class="stack-chip">React</span>
+          <span class="stack-chip">Storybook</span>
+          <span class="stack-chip">CSS Modules</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com" class="proj-link" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.268 2.75 1.026A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.026 2.747-1.026.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- HABILIDADES -->
+  <section id="habilidades">
+    <div class="reveal">
+      <p class="section-label">// habilidades</p>
+      <h2>Stack técnico</h2>
+      <p class="section-subtitle">Tecnologías con las que trabajo día a día.</p>
+    </div>
+    <div class="skills-cols reveal">
+      <div class="skill-group">
+        <h4>Frontend</h4>
+        <ul class="skill-list">
+          <li>React</li>
+          <li>JavaScript (ES2022+)</li>
+          <li>HTML5 / CSS3</li>
+          <li>Tailwind CSS</li>
+          <li>Vite</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h4>Herramientas</h4>
+        <ul class="skill-list">
+          <li>Git / GitHub</li>
+          <li>Firebase</li>
+          <li>GitHub Actions</li>
+          <li>Figma</li>
+          <li>VS Code</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h4>Prácticas</h4>
+        <ul class="skill-list">
+          <li>Diseño responsivo</li>
+          <li>Accesibilidad web</li>
+          <li>CI/CD</li>
+          <li>Code review</li>
+          <li>Trabajo en equipo ágil</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCIA -->
+  <section id="experiencia">
+    <div class="reveal">
+      <p class="section-label">// experiencia</p>
+      <h2>Trayectoria</h2>
+      <p class="section-subtitle">Mi recorrido como desarrolladora.</p>
+    </div>
+    <div class="timeline reveal">
+      <div class="timeline-item">
+        <p class="timeline-date">2024 — presente</p>
+        <h3>Desarrolladora Frontend</h3>
+        <p class="company">Proyecto Recos BnM · Equipo colaborativo</p>
+        <p>Responsable de Library.jsx, CollectionItem.jsx y BottomNav.jsx. Implementé autenticación con interceptores Bearer, sistema de toasts animados, funcionalidad de compartir listas y nueva página pública SharedList.</p>
+      </div>
+      <div class="timeline-item">
+        <p class="timeline-date">2023</p>
+        <h3>Desarrollo de proyectos personales</h3>
+        <p class="company">Formación autodidacta · React & Firebase</p>
+        <p>Profundización en React con hooks, gestión de estado, rutas protegidas y despliegue en plataformas cloud. Prácticas de CI/CD con GitHub Actions.</p>
+      </div>
+      <div class="timeline-item">
+        <p class="timeline-date">2022</p>
+        <h3>Fundamentos de desarrollo web</h3>
+        <p class="company">Formación académica</p>
+        <p>HTML, CSS, JavaScript, diseño responsivo y primeros proyectos con React. Inicio de colaboración en proyectos de equipo con control de versiones.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contact">
+    <div class="contact-card reveal">
+      <p class="section-label">// contacto</p>
+      <h2>¿Trabajamos juntos?</h2>
+      <p class="lead">Siempre abierta a nuevos proyectos, colaboraciones o simplemente una buena conversación sobre desarrollo web.</p>
+      <a href="mailto:diana@ejemplo.com" class="btn-primary">Envíame un mensaje</a>
+      <div class="social-links">
+        <a href="https://github.com" target="_blank" rel="noopener" class="social-link">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.268 2.75 1.026A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.026 2.747-1.026.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/></svg>
+          GitHub
+        </a>
+        <a href="https://linkedin.com" target="_blank" rel="noopener" class="social-link">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://twitter.com" target="_blank" rel="noopener" class="social-link">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          Twitter / X
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Construido con <span>♥</span> por Diana · 2025 · <span>diana.dev</span></p>
+  </footer>
+
+  <script>
+    // Typewriter
+    const roles = [
+      'Frontend Developer',
+      'React Specialist',
+      'UI Engineer',
+      'Frontend Developer',
+    ];
+    let ri = 0, ci = 0, deleting = false;
+    const el = document.getElementById('typed-role');
+    function type() {
+      const word = roles[ri];
+      if (!deleting) {
+        el.textContent = word.slice(0, ++ci);
+        if (ci === word.length) {
+          deleting = true;
+          setTimeout(type, 1800);
+          return;
+        }
+      } else {
+        el.textContent = word.slice(0, --ci);
+        if (ci === 0) {
+          deleting = false;
+          ri = (ri + 1) % roles.length;
+        }
+      }
+      setTimeout(type, deleting ? 50 : 90);
+    }
+    type();
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(r => obs.observe(r));
+
+    // SPA routing — update URL without reload
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const id = a.getAttribute('href');
+        history.pushState(null, '', id);
+      });
+    });
+  </script>
+</body>
+</html>
